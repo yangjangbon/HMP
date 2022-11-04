@@ -1,0 +1,81 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.Book-Title {
+  color: white;
+  font-size: calc(10px + 6vmin);
+  padding-bottom: 30%;
+}
+
+.ButtonTag {
+  font-size: calc(10px + 3vmin);
+  background-color: #ffc043;
+  border-color: #ffc043;
+  color: black;
+  border-radius: 15px;
+}
+
+.Button-End {
+  font-size: calc(10px + 3vmin);
+  background-color: #ffc043;
+  border-color: #ffc043;
+  color: black;
+  border-radius: 15px;
+  margin-bottom: 5%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+}
+
+.Bookmark {
+  color: white;
+  font-size: calc(10px + 2vmin);
+}
+
+.Time-Counter {
+  color: rgb(197, 57, 57);
+  font-size: calc(10px + 10vmin);
+}
+
+.video {
+  align-items: center;
+  background-color: black;
+  width: 100%;
+  padding-bottom: 150%;
+}
