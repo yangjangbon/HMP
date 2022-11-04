@@ -1,8 +1,13 @@
 import React from "react";
 import { Button, Container, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 function HMPResult() {
+  const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
+  const { count } = useParams();
+  const curr = new Date();
+  const utc = curr.getTime() + curr.getTimezoneOffset() * 60 * 1000;
+  const kr_curr = new Date(utc + KR_TIME_DIFF);
   return (
     <Container>
       <Row>
@@ -10,9 +15,10 @@ function HMPResult() {
           <div className="Book-Title">
             How Many Pull-ups?
             <br /> Date
-            <br /> 2022 / 11 / 11
+            <br /> {kr_curr.getFullYear()} / {kr_curr.getMonth()} /{" "}
+            {kr_curr.getDay()}
             <br /> Count
-            <br /> 7
+            <br /> {count}
           </div>
         </Col>
       </Row>

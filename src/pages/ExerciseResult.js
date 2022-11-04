@@ -1,8 +1,18 @@
 import React from "react";
 import { Button, Container, Row, Col, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const ExerciseResult = () => {
+  let { restSeconds, c1, c2, c3, c4, c5 } = useParams();
+
+  const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
+  const curr = new Date();
+  const utc = curr.getTime() + curr.getTimezoneOffset() * 60 * 1000;
+  const kr_curr = new Date(utc + KR_TIME_DIFF);
+
+  if (restSeconds == 0) {
+    restSeconds = 60;
+  }
   return (
     <Container>
       <Row>
@@ -10,11 +20,12 @@ const ExerciseResult = () => {
           <div className="Book-Title">
             Exercise
             <br /> Date
-            <br /> 2022 / 11 / 11
+            <br /> {kr_curr.getFullYear()} / {kr_curr.getMonth()} /{" "}
+            {kr_curr.getDay()}
             <br /> Count
-            <br /> 5 / 5 / 4 / 3 /1
+            <br /> {c1} / {c2} / {c3} / {c4} / {c5}
             <br /> Rest Seconds
-            <br /> 60
+            <br /> {restSeconds} Sec
           </div>
         </Col>
       </Row>

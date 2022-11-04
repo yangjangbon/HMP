@@ -3,6 +3,7 @@ import { Button, Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function HMP() {
+  let count = 5;
   return (
     <Container>
       <Row>
@@ -14,7 +15,7 @@ function HMP() {
       <Row>
         <Col>
           <Link
-            to={{ pathname: "/hmp/result" }}
+            to={{ pathname: "/hmp/result/" + count }}
             className="d-grid gap-2"
             style={{ textDecoration: "none" }}
           >

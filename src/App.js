@@ -19,13 +19,16 @@ const App = () => {
             <Route path="/hmp" element={<HMP />}>
               {" "}
             </Route>
-            <Route path="/hmp/result" element={<HMPRESULT />}>
+            <Route path="/hmp/result/:count" element={<HMPRESULT />}>
               {" "}
             </Route>
             <Route path="/exercise" element={<Exercise />}>
               {" "}
             </Route>
-            <Route path="/exercise/result" element={<ExerciseResult />}>
+            <Route
+              path="/exercise/result/:restSeconds/:c1/:c2/:c3/:c4/:c5"
+              element={<ExerciseResult />}
+            >
               {" "}
             </Route>
           </Routes>
