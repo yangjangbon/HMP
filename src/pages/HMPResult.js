@@ -8,6 +8,8 @@ function HMPResult() {
   const curr = new Date();
   const utc = curr.getTime() + curr.getTimezoneOffset() * 60 * 1000;
   const kr_curr = new Date(utc + KR_TIME_DIFF);
+  console.log(kr_curr.getMonth());
+  console.log(kr_curr.getDate());
   return (
     <Container>
       <Row>
@@ -15,8 +17,8 @@ function HMPResult() {
           <div className="Book-Title">
             How Many Pull-ups?
             <br /> Date
-            <br /> {kr_curr.getFullYear()} / {kr_curr.getMonth()} /{" "}
-            {kr_curr.getDay()}
+            <br /> {kr_curr.getFullYear()} / {kr_curr.getMonth() + 1} /{" "}
+            {kr_curr.getDate()}
             <br /> Count
             <br /> {count}
           </div>
