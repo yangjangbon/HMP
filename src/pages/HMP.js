@@ -3,10 +3,18 @@ import { Button, Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function HMP() {
+  let startAudio = new Audio("/lib/start.mp3");
+  let stopAudio = new Audio("/lib/stop.mp3");
+  let upAudio = new Audio("/lib/up.mp3");
+  let startCount = 0;
+  let stopCount = 0;
+
   const [isStarting, setIsStarting] = useState(false);
   let status = "down";
+  let startStatus = "idle";
   let count = 0;
   const [countLabel, setCountLabel] = useState(0);
+  const [statusLabel, setStatusLabel] = useState("idle / down");
   const URL = "/lib/";
   let videoElement, videoSelect, canvas;
   let selectors = [videoSelect];
@@ -108,11 +116,11 @@ function HMP() {
     canvas.height = height;
     ctx = canvas.getContext("2d");
 
-    labelContainer = document.getElementById("label-container");
-    for (let i = 0; i < maxPredictions; i++) {
-      // and class labels
-      labelContainer.appendChild(document.createElement("div"));
-    }
+    // labelContainer = document.getElementById("label-container");
+    // for (let i = 0; i < maxPredictions; i++) {
+    //   // and class labels
+    //   labelContainer.appendChild(document.createElement("div"));
+    // }
     setIsStarting(true);
   };
   const loop = async (timestamp) => {
@@ -131,24 +139,49 @@ function HMP() {
     prediction.sort((x, y) => y.probability - x.probability);
     console.log(prediction[0].className);
     if (prediction[0].probability >= 0.99) {
-      if (prediction[0].className == "down") {
-        console.log(count);
+      if (prediction[0].className == "start") {
+        stopCount = 0;
+        if (startStatus != "started") {
+          startCount++;
+        }
+        if (startCount >= 150 && startStatus != "started") {
+          startStatus = "started";
+          startAudio.play();
+        }
+      } else if (prediction[0].className == "stop") {
+        startCount = 0;
+        if (startStatus != "stoped") {
+          stopCount++;
+        }
+        if (stopCount >= 150 && startStatus != "stoped") {
+          startStatus = "stoped";
+          stopAudio.play();
+        }
+      } else if (prediction[0].className == "stand") {
+        startStatus = "idle";
+        startCount = 0;
+        stopCount = 0;
+      } else if (
+        prediction[0].className == "down" &&
+        startStatus == "started"
+      ) {
         status = "down";
-      } else if (prediction[0].className == "up") {
+      } else if (prediction[0].className == "up" && startStatus == "started") {
         if (status == "down") {
           count = count + 1;
+          upAudio.play();
         }
-        console.log(count);
         status = "up";
       }
     }
 
-    for (let i = 0; i < maxPredictions; i++) {
-      const classPrediction =
-        prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-      labelContainer.childNodes[i].innerHTML = classPrediction;
-    }
+    // for (let i = 0; i < maxPredictions; i++) {
+    //   const classPrediction =
+    //     prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+    //   labelContainer.childNodes[i].innerHTML = classPrediction;
+    // }
     setCountLabel(count);
+    setStatusLabel(startStatus + " / " + status);
     // finally draw the poses
     drawPose(pose);
   };
@@ -193,7 +226,9 @@ function HMP() {
             Start
           </button> */}
           <canvas id="canvas"></canvas>
-          <div id="label-container"></div>
+          {/* <div id="label-container"></div> */}
+          {statusLabel}
+          <br />
           {countLabel}
         </Col>
       </Row>
