@@ -18,8 +18,8 @@ function HMP() {
   const URL = "/lib/";
   let videoElement, videoSelect, canvas;
   let selectors = [videoSelect];
-  const width = 300;
-  const height = 300;
+  const width = 200;
+  const height = 200;
   navigator.mediaDevices
     .enumerateDevices()
     .then(gotDevices)
@@ -81,8 +81,13 @@ function HMP() {
     const videoSource = videoSelect.value;
 
     const constraints = {
-      video: { deviceId: videoSource ? { exact: videoSource } : undefined },
+      video: { facingMode: "environment" },
     };
+    // const constraints = {
+    //   video: { deviceId: videoSource ? { exact: videoSource } : undefined },
+    // };
+
+    console.log(constraints);
     navigator.mediaDevices
       .getUserMedia(constraints)
       .then(gotStream)
@@ -116,11 +121,11 @@ function HMP() {
     canvas.height = height;
     ctx = canvas.getContext("2d");
 
-    labelContainer = document.getElementById("label-container");
-    for (let i = 0; i < maxPredictions; i++) {
-      // and class labels
-      labelContainer.appendChild(document.createElement("div"));
-    }
+    // labelContainer = document.getElementById("label-container");
+    // for (let i = 0; i < maxPredictions; i++) {
+    //   // and class labels
+    //   labelContainer.appendChild(document.createElement("div"));
+    // }
     setIsStarting(true);
   };
   const loop = async (timestamp) => {
@@ -144,7 +149,7 @@ function HMP() {
         if (startStatus != "started") {
           startCount++;
         }
-        if (startCount >= 150 && startStatus != "started") {
+        if (startCount >= 100 && startStatus != "started") {
           startStatus = "started";
           startAudio.play();
         }
@@ -153,7 +158,7 @@ function HMP() {
         if (startStatus != "stoped") {
           stopCount++;
         }
-        if (stopCount >= 150 && startStatus != "stoped") {
+        if (stopCount >= 100 && startStatus != "stoped") {
           startStatus = "stoped";
           stopAudio.play();
         }
@@ -175,11 +180,11 @@ function HMP() {
       }
     }
 
-    for (let i = 0; i < maxPredictions; i++) {
-      const classPrediction =
-        prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-      labelContainer.childNodes[i].innerHTML = classPrediction;
-    }
+    // for (let i = 0; i < maxPredictions; i++) {
+    //   const classPrediction =
+    //     prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+    //   labelContainer.childNodes[i].innerHTML = classPrediction;
+    // }
     setCountLabel(count);
     setStatusLabel(startStatus + " / " + status);
     // finally draw the poses
@@ -226,7 +231,7 @@ function HMP() {
             Start
           </button> */}
           <canvas id="canvas"></canvas>
-          <div id="label-container"></div>
+          {/* <div id="label-container"></div> */}
           {statusLabel}
           <br />
           {countLabel}
