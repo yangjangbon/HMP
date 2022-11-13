@@ -81,7 +81,7 @@ function HMP() {
     const videoSource = videoSelect.value;
 
     const constraints = {
-      video: { facingMode: "environment" },
+      video: { facingMode: "environment", height: 200 },
     };
     // const constraints = {
     //   video: { deviceId: videoSource ? { exact: videoSource } : undefined },
@@ -215,13 +215,7 @@ function HMP() {
       </Row>
       <Row>
         <Col className="d-grid gap-2">
-          <video
-            id="video"
-            width="300"
-            height="300"
-            playsInline
-            autoPlay
-          ></video>
+          <video id="video" playsInline autoPlay></video>
         </Col>
       </Row>
       <Row>
