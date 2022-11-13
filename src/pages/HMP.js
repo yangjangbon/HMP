@@ -116,11 +116,11 @@ function HMP() {
     canvas.height = height;
     ctx = canvas.getContext("2d");
 
-    // labelContainer = document.getElementById("label-container");
-    // for (let i = 0; i < maxPredictions; i++) {
-    //   // and class labels
-    //   labelContainer.appendChild(document.createElement("div"));
-    // }
+    labelContainer = document.getElementById("label-container");
+    for (let i = 0; i < maxPredictions; i++) {
+      // and class labels
+      labelContainer.appendChild(document.createElement("div"));
+    }
     setIsStarting(true);
   };
   const loop = async (timestamp) => {
@@ -175,11 +175,11 @@ function HMP() {
       }
     }
 
-    // for (let i = 0; i < maxPredictions; i++) {
-    //   const classPrediction =
-    //     prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-    //   labelContainer.childNodes[i].innerHTML = classPrediction;
-    // }
+    for (let i = 0; i < maxPredictions; i++) {
+      const classPrediction =
+        prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+      labelContainer.childNodes[i].innerHTML = classPrediction;
+    }
     setCountLabel(count);
     setStatusLabel(startStatus + " / " + status);
     // finally draw the poses
@@ -204,7 +204,7 @@ function HMP() {
         <Col className="d-grid gap-2">
           <div className="select">
             <label htmlFor="videoSource">Video source: </label>
-            <select id="videoSource"></select>
+            <select id="videoSource" onChange={init}></select>
           </div>
         </Col>
       </Row>
@@ -226,7 +226,7 @@ function HMP() {
             Start
           </button> */}
           <canvas id="canvas"></canvas>
-          {/* <div id="label-container"></div> */}
+          <div id="label-container"></div>
           {statusLabel}
           <br />
           {countLabel}

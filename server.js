@@ -4,7 +4,7 @@ const path = require("path");
 const app = express();
 const http = require("http").createServer(app);
 
-const port = 80;
+const port = 8080;
 app.use(cors());
 app.use(express.static(path.join(__dirname, "/build")));
 console.log(path.join(__dirname, "/build"));
